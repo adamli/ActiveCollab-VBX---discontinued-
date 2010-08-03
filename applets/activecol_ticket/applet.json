@@ -1,0 +1,6 @@
+{
+	"name": "Ticket",
+	"author": "Will Tran <wtran@twilio.com>",
+	"description": "This will create a ticket in activeCollab. Voicemail will automatically go into OpenVBX users inboxes. If no match found, voicemail will go to default user.",
+	"type": ["voice", "sms"]
+}
