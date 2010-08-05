@@ -106,6 +106,50 @@ if(@$uri[3] == 'api') {
 		}
 	}
 
+    else if($api_path_segs[0] == 'projects') {
+        if($response->method == 'get') 
+        { // {{{
+            try {
+                $params = $response->params;
+
+                // Error checking
+                $errors = array();
+                if(empty($params['domain'])) $errors[] = array('name'=>'domain', 'msg'=>'activeCollab Domain is required.');
+                if(empty($params['token'])) $errors[] = array('name'=>'token', 'msg'=>'Token is required.');
+                if(!empty($errors)) throw new Exception('INVALID_USER');
+
+                // Sanatize
+                foreach($params as &$v) $v = trim($v);
+
+                define(COL_DOMAIN, $params['domain']);
+                define(COL_TOKEN, $params['token']);
+
+                $projects = activecollab_client::request('/projects');
+                if(!$projects) {
+                    throw new Exception('INVALID_USER');
+                } else {
+                    throw new Exception('SUCCESS');
+                }
+
+                throw new Exception('EXCEPTION');
+            } catch(Exception $e) {
+                switch($e->getMessage()) {
+                    case 'INVALID_USER':
+                        PluginServer::sendResponse(401, 'INVALID_USER', 'Invalid activeCollab user credentials.');
+                        break;
+
+                    case 'SUCCESS':
+                        PluginServer::sendResponse(200, 'SUCCESS', 'Projects retrieved.', array('projects' => $projects));
+                        break;
+
+                    default:
+                        PluginServer::sendResponse(500, $e->getMessage(), 'Exception server error.');
+                        break;
+                }
+            }
+        } // }}}
+    }
+
 	else {
 		PluginServer::sendResponse(404);
 	}
