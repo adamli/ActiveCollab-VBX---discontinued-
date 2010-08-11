@@ -14,20 +14,11 @@ class activecollab_client {
 	*/
 	function request($path, $method='GET', $params='') {
 		if(!defined('COL_DOMAIN') || !defined('COL_TOKEN')) {
-			error_log('activeCollab credentials missing.');
+			error_log('ACTIVECOLLAB-VBX: activeCollab credentials missing.');
 			return FALSE;
 		}
 
-		$url = 'http://'.COL_DOMAIN.'.activecollab.net/api.php';
-		$querystr = array(
-			'path_info' => $path,
-			'token' => COL_TOKEN,
-			'format' => 'json'
-		);
-		if(is_array($params) && !empty($params)) {
-			$querystr = array_merge($query_str, $params);
-		}
-		$url .= '?'.http_build_query($querystr);
+		$url = 'http://'.COL_DOMAIN.'.activecollab.net/api.php?path_info='.$path.'&token='.COL_TOKEN;
 		$ch = curl_init();
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => $url,
@@ -38,11 +29,11 @@ class activecollab_client {
 
 		switch($method) {
 			case 'GET':
+				$url .= '&'.http_build_query($params);
             	curl_setopt($ch, CURLOPT_HTTPGET, TRUE);
 				break;
 
 			case 'POST':
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/xml"));
 				curl_setopt($ch, CURLOPT_POST, TRUE);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 				break;
@@ -55,10 +46,11 @@ class activecollab_client {
 		$ch_info = curl_getinfo($ch);
 		$ch_error = curl_error($ch);
 
-		error_log('curl to '.$url.': '.json_encode($ch_info));
+		error_log('ACTIVECOLLAB-VBX: Pinging '.$url.' - '.json_encode($ch_info));
+		error_log('ACTIVECOLLAB-VBX: Results - '.$results);
 	
 		if($ch_error) {
-			error_log('curl error to activecollab api: '.$ch_error);
+			error_log('ACTIVECOLLAB-VBX: Curl error to activeCollab API: '.$ch_error);
 			return FALSE;
 		} else if($ch_info['http_code'] == 200) {
 			return json_decode($results);

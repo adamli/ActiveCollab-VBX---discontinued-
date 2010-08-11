@@ -38,7 +38,7 @@ var col_creds_form = {
             				$('div.system_msg').html('Success! Credentials saved.').css('color', 'green');
 							window.setTimeout(3000, function() { location.href = base_url + 'config/ActiveCollab-VBX'; });
 						} else if(r.key == 'INVALID_USER') {
-            				$('div.system_msg').html('Invalid activeCollab credentials saved.').css('color', 'red');
+            				$('div.system_msg').html('Invalid activeCollab credentials.').css('color', 'red');
 						} else if(r.key == 'FORM_ERROR') {
             				$('div.system_msg').html('Cannot save credentials due to errors on the form.').css('color', 'red');
 						}

@@ -30,6 +30,8 @@ div.activecol_ticket_applet label span.caption { color:gray; font-style:italic; 
 <div class="vbx-applet activecol_ticket_applet">
 	<p>This applet will take a voicemail of incoming calls and create a ticket in activeCollab projects.</p>
 
+    <p style="color:red;">Requires the FlowSessions-VBX Capture Data plugin before this. You can get it at <a href="http://github.com/thevinci/FlowSessions-VBX" target="_blank" style="color:red;">http://github.com/thevinci/FlowSessions-VBX</a>.</p>
+
     <div class="credentials" <?php echo $col_creds ? 'style="display:none;"' : '' ?>>
         <!-- {{{ -->
 		<div class="activecollab_creds section">
