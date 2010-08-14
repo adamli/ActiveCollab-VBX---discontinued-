@@ -1,1 +1,8 @@
-NOT DONE YET
+ActiveCollab OpenVBX Plugin
+by Will Tran <wtran@twilio.com>
+Aug 11, 2010
+----
+
+Requires: FlowSessions-VBX to catch all incoming data from Twilio
+
+This plugin allows you to save voice tickets for specific project.

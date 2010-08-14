@@ -40,8 +40,8 @@ div.activecol_ticket_applet label span.caption { color:gray; font-style:italic; 
 			<div class="vbx-input-container input">
 				<label>
 					activeCollab URL
-					<span class="caption">activeCollab Domain</span>
-					<div style="font-size:16px;">http:// <input name="domain" class="small" type="text" value="<?php echo defined('COL_DOMAIN') ? COL_DOMAIN : '' ?>" style="display:inline-block;" /> .activecollab.net/api.php</div>
+					<span class="caption">Url where API is called. This is something similar to http://yoursite.activecollab.net/api.php</span>
+					<input name="domain" class="medium" type="text" value="<?php echo defined('COL_DOMAIN') ? COL_DOMAIN : '' ?>" />
 				</label>
 				<span class="domain_err"></span>
 			</div>

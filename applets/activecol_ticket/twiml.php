@@ -25,7 +25,19 @@ if(!empty($_REQUEST['TranscriptionText'])): ?>
     define('COL_TOKEN', $col_creds->token);
     define('COL_TIMEZONE', $col_creds->timezone);
 
-    $new_ticket = activecollab_client::request('/projects/'.$proj_id.'/tickets/add', 'POST', array('submitted' => 'submitted', 'ticket[name]' => $_REQUEST['TranscriptionText']));
+	$body =
+		'"'.$_REQUEST['TranscriptionText'].'"'."<br />".
+		"<a href=\"{$_REQUEST['RecordingUrl']}\" target=\"_blank\">{$_REQUEST['RecordingUrl']}</a>";
+
+    $new_ticket = activecollab_client::request(
+		'/projects/'.$proj_id.'/tickets/add', 
+		'POST', 
+		array(
+			'submitted' => 'submitted', 
+			'ticket[name]' => 'Voicemail Ticket from '.format_phone($_REQUEST['Caller']), 
+			'ticket[body]' => $body
+		)
+	);
     error_log('ACTIVECOLLAB-VBX: Creating new ticket - '.json_encode($new_ticket));
 
     $params = http_build_query($_REQUEST);

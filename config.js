@@ -13,7 +13,7 @@ var col_creds_form = {
         $('div.system_msg').empty().css('color', 'inherit');
 
         var errors = [];
-        if(domain_el.val().trim() == '') errors.push({ name:'domain', msg:'activeCollab Domain is required.' });
+        if(domain_el.val().trim() == '') errors.push({ name:'domain', msg:'activeCollab Url is required.' });
         if(token_el.val().trim() == '') errors.push({ name:'token', msg:'API Token is required.' });
 
         if(errors.length == 0) {

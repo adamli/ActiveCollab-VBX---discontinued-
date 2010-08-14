@@ -26,8 +26,8 @@ span[class$="_err"] { color:red; }
 			<div class="vbx-input-container input">
 				<label>
 					activeCollab URL
-					<span class="caption">activeCollab Domain</span>
-					<div style="font-size:16px;">http:// <input name="domain" class="small" type="text" value="<?php echo defined('COL_DOMAIN') ? COL_DOMAIN : '' ?>" style="display:inline-block;" /> .activecollab.net/api.php</div>
+					<span class="caption">activeCollab Domain that is something like http://yoursite.activecollab.net/api.php</span>
+					<input name="domain" class="medium" type="text" value="<?php echo defined('COL_DOMAIN') ? COL_DOMAIN : '' ?>" style="display:inline-block;" />
 				</label>
 				<span class="domain_err"></span>
 			</div>

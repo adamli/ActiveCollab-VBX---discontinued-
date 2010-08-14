@@ -12,24 +12,18 @@ class activecollab_client {
 			COL_DOMAIN
 			COL_TOKEN
 	*/
-	function request($path, $method='GET', $params='') {
+	function request($path, $method='GET', $params=array()) {
 		if(!defined('COL_DOMAIN') || !defined('COL_TOKEN')) {
 			error_log('ACTIVECOLLAB-VBX: activeCollab credentials missing.');
 			return FALSE;
 		}
 
-		$url = 'http://'.COL_DOMAIN.'.activecollab.net/api.php?path_info='.$path.'&token='.COL_TOKEN;
+		$url = COL_DOMAIN.'?path_info='.$path.'&token='.COL_TOKEN;
 		$ch = curl_init();
-		curl_setopt_array($ch, array(
-			CURLOPT_URL => $url,
-			CURLOPT_HEADER => FALSE,
-			CURLOPT_FOLLOWLOCATION => TRUE,
-			CURLOPT_RETURNTRANSFER => TRUE
-		));
 
 		switch($method) {
 			case 'GET':
-				$url .= '&'.http_build_query($params);
+				$url .= '&format=json&'.http_build_query($params);
             	curl_setopt($ch, CURLOPT_HTTPGET, TRUE);
 				break;
 
@@ -41,6 +35,14 @@ class activecollab_client {
 			default:
 				return FALSE;
 		}
+
+		curl_setopt_array($ch, array(
+			CURLOPT_URL => $url,
+			CURLOPT_HEADER => FALSE,
+			CURLOPT_FOLLOWLOCATION => TRUE,
+			CURLOPT_RETURNTRANSFER => TRUE
+		));
+
 
 		$results = curl_exec($ch);
 		$ch_info = curl_getinfo($ch);
