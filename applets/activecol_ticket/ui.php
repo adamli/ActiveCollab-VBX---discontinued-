@@ -101,6 +101,7 @@ div.activecol_ticket_applet label span.caption { color:gray; font-style:italic; 
 </div>
 
 <script>
+var base_url = '<?php echo base_url() ?>';
 var col_domain = '<?php echo defined('COL_DOMAIN') ? COL_DOMAIN : '' ?>';
 var col_token = '<?php echo defined('COL_TOKEN') ? COL_TOKEN : '' ?>';
 var col_creds = <?php echo $col_creds ? '1' : '0' ?>;
